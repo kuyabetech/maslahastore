@@ -1,0 +1,1 @@
+<?php // Offline sync endpoint ?>

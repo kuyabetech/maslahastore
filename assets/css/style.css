@@ -1,0 +1,478 @@
+/* ────────────────────────────────────────────────
+   MASLAHA STORE - Pure CSS Styles
+   Mobile-first, responsive, no framework
+───────────────────────────────────────────────── */
+
+:root {
+    --primary: #2c7be5;       /* blue accent */
+    --dark: #1a2537;
+    --light: #f8f9fa;
+    --gray: #6c757d;
+    --danger: #dc3545;
+    --success: #28a745;
+    --warning: #ffc107;
+    --sidebar-width: 240px;
+    --transition: 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--light);
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ── Header / Top Bar ── */
+header {
+    background: var(--dark);
+    color: white;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-toggle {
+    font-size: 1.8rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: white;
+}
+/* ────────────────────────────────────────────────
+   NAVBAR + LOGO STYLING
+───────────────────────────────────────────────── */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--dark);
+    color: white;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    height: 70px;
+}
+
+.navbar-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo area */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1.35rem;
+    gap: 12px;
+}
+
+.logo-img {
+    height: 48px;
+    width: auto;
+    max-width: 220px;
+    object-fit: contain;
+    transition: transform 0.2s;
+}
+
+.navbar-brand:hover .logo-img {
+    transform: scale(1.04);
+}
+
+.logo-text {
+    letter-spacing: 1px;
+}
+
+/* Mobile: hide text if screen is very small */
+@media (max-width: 480px) {
+    .logo-text {
+        display: none;
+    }
+    .logo-img {
+        height: 42px;
+    }
+}
+
+/* Hamburger */
+.navbar-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 36px;
+    height: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.bar {
+    width: 100%;
+    height: 3.5px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.35s ease;
+}
+
+/* User dropdown */
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.user-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.5rem;
+}
+
+.user-avatar svg {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #3b82f6;
+}
+
+.user-info {
+    text-align: right;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 1rem;
+    display: block;
+}
+
+.user-role {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.75);
+    display: block;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    min-width: 160px;
+    display: none;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.user-dropdown:hover .dropdown-menu,
+.user-dropdown:focus-within .dropdown-menu {
+    display: block;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.8rem 1.2rem;
+    color: #1e293b;
+    text-decoration: none;
+}
+
+.dropdown-item:hover {
+    background: #f1f5f9;
+}
+
+.logout-item {
+    color: #ef4444 !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 991px) {
+    .navbar-toggle {
+        display: flex;
+    }
+    
+    .navbar-right {
+        gap: 1rem;
+    }
+    
+    .user-role {
+        display: none;
+    }
+}
+.brand {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+/* ────────────────────────────────────────────────
+   RESPONSIVE SIDEBAR - Pure CSS + Minimal JS
+───────────────────────────────────────────────── */
+
+:root {
+    --sidebar-width: 260px;
+    --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    --sidebar-bg: #1e293b;
+    --sidebar-text: #e2e8f0;
+    --active-bg: rgba(59, 130, 246, 0.15);
+    --active-border: #3b82f6;
+}
+
+.sidebar {
+    position: fixed;
+    inset: 0  auto 0 0;
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    transform: translateX(-100%);
+    transition: transform var(--transition);
+    z-index: 999;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Open state */
+.sidebar.open {
+    transform: translateX(0);
+}
+
+/* Desktop - always visible */
+@media (min-width: 992px) {
+    .sidebar {
+        transform: translateX(0);
+        position: fixed;
+    }
+    main {
+        margin-left: var(--sidebar-width);
+    }
+    .menu-toggle, .close-btn {
+        display: none !important;
+    }
+}
+
+/* Header inside sidebar (mobile only) */
+.sidebar-header {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: white;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+/* Navigation */
+nav {
+    flex: 1;
+    padding: 1rem 0;
+}
+
+nav a, .menu-item > a {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    transition: all 0.2s;
+    border-left: 4px solid transparent;
+}
+
+nav a:hover, .menu-item > a:hover {
+    background: rgba(255,255,255,0.06);
+    color: white;
+}
+
+nav a.active, .menu-item > a.active {
+    background: var(--active-bg);
+    border-left-color: var(--active-border);
+    color: white;
+    font-weight: 500;
+}
+
+.logout {
+    margin-top: auto;
+    color: #f87171 !important;
+}
+
+/* Submenu */
+.has-submenu > a {
+    cursor: pointer;
+}
+
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition);
+    background: rgba(0,0,0,0.15);
+}
+
+.has-submenu.open .submenu {
+    max-height: 500px; /* adjust if you have more items */
+}
+
+.submenu a {
+    padding-left: 3.5rem;
+    font-size: 0.95rem;
+}
+
+/* Mobile menu toggle button in header */
+.menu-toggle {
+    font-size: 1.8rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+/* Main Content */
+main {
+    margin-left: 0;
+    padding: 1.5rem;
+    transition: margin-left var(--transition);
+}
+
+@media (min-width: 992px) {
+    .sidebar {
+        left: 0;
+    }
+    .menu-toggle {
+        display: none;
+    }
+    main {
+        margin-left: var(--sidebar-width);
+    }
+}
+
+/* ── Cards / Dashboard Widgets ── */
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-number {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+/* ── Forms ── */
+form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+input, select, textarea, button {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.6rem 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #1e60c0;
+}
+
+/* ── Tables ── */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: white;
+}
+
+th, td {
+    padding: 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background: #f1f3f5;
+}
+
+/* ── Responsive Tables ── */
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    tr {
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+    }
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+    td:before {
+        position: absolute;
+        top: 0.8rem;
+        left: 1rem;
+        width: 45%;
+        padding-right: 1rem;
+        white-space: nowrap;
+        content: attr(data-label);
+        font-weight: bold;
+    }
+}
+
+/* ── Low stock / Alerts ── */
+.alert-low {
+    background: #fff3cd;
+    color: #856404;
+    padding: 1rem;
+    border-radius: 6px;
+    margin: 1rem 0;
+}
